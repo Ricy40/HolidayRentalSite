@@ -1,6 +1,7 @@
 
 document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
+
+    var calendarEl = document.getElementById('calendar-admins');
     var calendar = new FullCalendar.Calendar(calendarEl, {
         selectable: true,
 
@@ -9,8 +10,6 @@ document.addEventListener('DOMContentLoaded', function() {
             center: "title",
             end: "today prev,next"
         },
-
-        events: getEventsF(),
 
         dateClick: function(info) {
 
@@ -25,7 +24,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     event = events[entry];
                     if (event.startStr === info.dateStr) {
                         event.remove();
-                        alert('Removed Events...');
+                        var events = calendar.getEvents();
+                        var eventsStart = events.map(function(event) { return event.start });
+                        var eventStr = JSON.stringify(eventsStart);
+                        sendData(eventStr);
                         return;
                     }
                 }
@@ -36,13 +38,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     display: 'background',
                     color: "#ffa3a3"
                 });
-                alert('Great. Now, update your database...');
 
                 var events = calendar.getEvents();
                 var eventsStart = events.map(function(event) { return event.start });
                 var eventStr = JSON.stringify(eventsStart);
-
-                console.log(eventStr);
                 sendData(eventStr);
 
             } else {
@@ -50,65 +49,92 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         },
 
-
-        //select: function(info) {
-        //    alert('selected ' + info.startStr + ' to ' + info.endStr);
-        //},
-
         initialView: 'dayGridMonth',
         themeSystem: 'bootstrap5'
 
     });
-    calendar.render();
-});
 
-
-function sendData(data) {
-    
-    console.log("Sending data: " + data);
-    
-    $.post( "/calendar", {
-        startDates: data
-    });
-}
-
-function getEventsF() {
-    data = getData();
-    console.log(data);
-
-    if (data) {
-        dates = JSON.parse(data);
-        console.log(dates);
-
-        events = [];
-
-        for (date in dates) {
-            console.log(date);
-
-            events.push({
-                start: date,
-                allDay: true,
-                display: 'background',
-                color: "#ffa3a3"
-            })
-        }
-        console.log(events);
-        return events;
-    } else {
-        return [];
-    }
-}
-
-
-function getData() {
-    $.ajax({
+    $.get({
         url: '/process',
         type: 'POST',
-        success: function(response) {
-            return response
+        success: function(data) {
+            if (data) {
+                dates = data.split(", ");
+                var events = [];
+
+                for (date in dates) {
+                    event = {
+                        start: dates[date],
+                        allDay: true,
+                        display: 'background',
+                        color: "#ffa3a3"
+                    };
+                    events.push(event)
+                }
+                calendar.addEventSource(events);
+                calendar.render();
+            } else {
+                calendar.render();
+            }
         },
         error: function(error) {
             console.log(error);
         }
     });
+});
+
+
+function sendData(data) {
+    console.log("Sending data: " + data);
+    $.post( "/calendar", {
+        startDates: data
+    });
 }
+
+// If not admin
+
+document.addEventListener('DOMContentLoaded', function() {
+
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        selectable: true,
+
+        headerToolbar: {
+            start: "prevYear,nextYear",
+            center: "title",
+            end: "today prev,next"
+        },
+
+        initialView: 'dayGridMonth',
+        themeSystem: 'bootstrap5'
+
+    });
+
+    $.get({
+        url: '/process',
+        type: 'POST',
+        success: function(data) {
+            if (data) {
+                dates = data.split(", ");
+                var events = [];
+
+                for (date in dates) {
+                    event = {
+                        start: dates[date],
+                        allDay: true,
+                        display: 'background',
+                        color: "#ffa3a3"
+                    };
+                    events.push(event)
+                }
+                calendar.addEventSource(events);
+                calendar.render();
+            } else {
+                calendar.render();
+            }
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+});

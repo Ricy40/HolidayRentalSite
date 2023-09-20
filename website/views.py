@@ -147,9 +147,12 @@ def calendar():
     print(data)
     data = eval(data)
     print(data)
+
+    Event.query.delete()
+
     for i in data:
         print(i)
-        event = Event(json=i)
+        event = Event(value=i)
         db.session.add(event)
     db.session.commit()
     print("COMMITED DATA!")
@@ -158,7 +161,7 @@ def calendar():
 @views.route('/process', methods=['POST'])
 def process():
     events = getEvents()
-    eventsString = '[ "' + '", "'.join(str(event.value) for event.value in events) + '" ]'
+    eventsString = ', '.join(str(event.value) for event in events)
     print(eventsString)
     return eventsString
 
