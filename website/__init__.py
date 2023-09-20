@@ -5,9 +5,10 @@ from flask_login import LoginManager
 from flask_cors import CORS
 
 db = SQLAlchemy()
-DB_NAME = "databse.db"
+DB_NAME = "database.db"
 
 def create_app():
+    abs_instance_path = path.abspath(path.join(path.dirname(__file__), '..', 'instance'))  # <--- this will be the instance directory
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'aiu1s32hfust768y98nsajs73k'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'

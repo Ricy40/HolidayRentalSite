@@ -58,6 +58,7 @@
 .card-review {
   min-height: 400px;
   min-width: 300px;
+  max-width: 500px;
   margin-right: 5px;
   background-color: rgba(var(--bs-light-rgb), 1);
 }

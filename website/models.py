@@ -16,3 +16,7 @@ class Review(db.Model):
     rating = db.Column(db.Integer)
     date = db.Column(db.DateTime(timezone=True), default=func.now())
     verified = db.Column(db.Boolean, default=False)
+
+class Event(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    value = db.Column(db.String(100))

@@ -2,9 +2,10 @@ import os
 import re
 import smtplib
 import phonenumbers
+import json
 
 from flask import Blueprint, render_template, request, flash
-from .models import User, Review
+from .models import User, Review, Event
 from .initAdmin import getAdmin
 from . import initAdmin, db
 
@@ -45,6 +46,10 @@ def checkDateFormat(date):
     else:
         return False
 
+def getEvents():
+    events = Event.query.all()
+    return events
+
 @views.route('/', methods=['GET', 'POST'])
 def home():
     if request.method == 'POST':
@@ -63,12 +68,6 @@ def home():
             rating = request.form.get('stars')
             email = request.form.get('review-email')
             title = request.form.get('review-title')
-
-            print(user)
-            print(description)
-            print(rating)
-            print(email)
-            print(title)
 
             if rating == None:
                 flash("You must choose a rating!", category='error')
@@ -98,9 +97,9 @@ def home():
 
         if 'submit-review-delete' in request.form:
             reviewID = request.form.get('submit-review-delete')
-            review = Review.query.filter_by(id=ReviewID).first()
+            review = Review.query.filter_by(id=reviewID).first()
             db.session.delete(review)
-            sb.session.commit()
+            db.session.commit()
 
         if 'submit-message' in request.form:
 
@@ -141,3 +140,25 @@ def home():
                 flash("Message sent!", category='success')
 
     return render_template("/index.html", user=current_user, reviews=getReviews())
+
+@views.route('/calendar', methods=['POST'])
+def calendar():
+    data = request.form['startDates']
+    print(data)
+    data = eval(data)
+    print(data)
+    for i in data:
+        print(i)
+        event = Event(json=i)
+        db.session.add(event)
+    db.session.commit()
+    print("COMMITED DATA!")
+    return "OK"
+
+@views.route('/process', methods=['POST'])
+def process():
+    events = getEvents()
+    eventsString = '[ "' + '", "'.join(str(event.value) for event.value in events) + '" ]'
+    print(eventsString)
+    return eventsString
+
