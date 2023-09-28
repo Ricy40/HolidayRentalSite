@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700&amp;display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kaushan+Script&amp;display=swap">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.11.0/css/flag-icons.min.css"/>
     <link rel="stylesheet" href="{{ url_for('static', filename='fonts/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bs-theme-overrides.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/Features-Cards-icons.css') }}">
@@ -22,14 +23,25 @@
 <body id="page-top" data-bs-spy="scroll" data-bs-target="#mainNav" data-bs-offset="54">
     <div class="fixed-top">
         <nav class="navbar navbar-expand-lg bg-light navbar-dark" id="mainNav">
-            <div class="container"><a class="navbar-brand link-primary" href="#page-top">Mas de Barras</a><button data-bs-toggle="collapse" data-bs-target="#navbarResponsive" class="navbar-toggler text-bg-primary navbar-toggler-right" type="button" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
+            <div class="container">
+                <a class="navbar-brand link-primary" href="#page-top">
+                    Mas de Barras
+                </a>
+                <div style="margin-left: 5px">
+                    <form method="POST">
+                        <button name="submit-lang" type="submit" style="border: 0px;background: rgba(0,0,0,0);">
+                            <span class="fi fi-{% block lan_cur %}{% endblock %}"></span>
+                        </button>
+                    </form>
+                </div>
+                <button data-bs-toggle="collapse" data-bs-target="#navbarResponsive" class="navbar-toggler text-bg-primary navbar-toggler-right" type="button" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto text-uppercase">
-                        <li class="nav-item"><a class="nav-link link-secondary" href="#accomodation">Accomodation</a></li>
-                        <li class="nav-item text-primary"><a class="nav-link link-secondary" href="#rates">Rates &amp; Availability</a></li>
-                        <li class="nav-item text-secondary"><a class="nav-link link-secondary" href="#area">Our Area</a></li>
-                        <li class="nav-item"><a class="nav-link link-secondary" href="#reservations">Reservations</a></li>
-                        <li class="nav-item"><a class="nav-link link-secondary" href="#guestbook">Guestbook</a></li>
+                        <li class="nav-item"><a class="nav-link link-secondary" href="#accomodation">{% block nav_acc %}{% endblock %}</a></li>
+                        <li class="nav-item text-primary"><a class="nav-link link-secondary" href="#rates">{% block nav_rat %}{% endblock %}</a></li>
+                        <li class="nav-item text-secondary"><a class="nav-link link-secondary" href="#area">{% block nav_are %}{% endblock %}</a></li>
+                        <li class="nav-item"><a class="nav-link link-secondary" href="#reservations">{% block nav_res %}{% endblock %}</a></li>
+                        <li class="nav-item"><a class="nav-link link-secondary" href="#guestbook">{% block nav_gue %}{% endblock %}</a></li>
                     </ul>
                 </div>
             </div>
@@ -58,8 +70,10 @@
         <div data-bss-parallax-bg="true" style="height: 700px;display: block;width: auto;background: url(&quot;../static/img/pic1.jpeg&quot;);background-size: auto;">
             <div class="container">
                 <div class="intro-text">
-                    <div class="intro-lead-in"><span class="text-black">Welcome To France!</span></div>
-                    <div class="intro-heading"><span class="text-black" style="font-family: 'Kaushan Script', serif;">Mas de Barras</span></div>
+                    <div class="welcome-text-bg">
+                        <div class="intro-lead-in" style="margin-top:15px;"><span class="text-black">{% block welcome %}{% endblock %}</span></div>
+                        <div class="intro-heading"><span class="text-black" style="  font-family: 'Kaushan Script', serif;">Mas de Barras</span></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -68,8 +82,8 @@
         <div class="container">
             <div id="acc-title" class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="text-uppercase section-heading">Accomodation</h2>
-                    <h3 class="text-muted section-subheading" style="max-width: 900px;margin: auto;margin-bottom: 25px;"><span style="color: rgb(0, 0, 0);">Welcome to our exquisite villa perched above the Cez river on the outskirts of Sainte Ambroix in XXXXXX. Just minutes from the extensive amenities of the town and within easy distance of three world heritage sites and other historic attractions, this luxurious retreat offers uninterrupted views across the valley. With its timeless blend of elegance and modern comfort, it promises an unforgettable holiday for families, friends or couples seeking a secluded romantic getaway.</span></h3>
+                    <h2 class="text-uppercase section-heading">{% block acc_tit %}{% endblock %}</h2>
+                    <h3 class="text-muted section-subheading" style="max-width: 900px;margin: auto;margin-bottom: 25px;"><span style="color: rgb(0, 0, 0);">{% block acc_des %}{% endblock %}</span></h3>
                 </div>
             </div>
             <div id="acc-carousel" class="row">
@@ -81,8 +95,8 @@
                                     <div class="row">
                                         <div class="col-md-6 col-xl-4 offset-md-2">
                                             <div class="carousel-text-bg">
-                                                <h1 class="text-uppercase fw-bold">Exterior and Surroundings</h1>
-                                                <p class="my-3">As you arrive at the villa, you'll be captivated by the stunning stone facade adorned with blooming bougainvillea, exuding rustic romance. Surrounded by lush gardens, fragrant lavender fields, and ancient olive groves, the property offers a serene ambiance and breathtaking views of the Provençal countryside. Enjoy mornings on the terrace and evenings witnessing mesmerizing sunsets.</p>
+                                                <h1 class="text-uppercase fw-bold">{% block acc_sl1_tit %}{% endblock %}</h1>
+                                                <p class="my-3">{% block acc_sl1_des %}{% endblock %}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -93,8 +107,8 @@
                                     <div class="row">
                                         <div class="col-md-6 col-xl-4 offset-md-2">
                                             <div class="carousel-text-bg">
-                                                <h1 class="text-uppercase fw-bold">Indoor Living Spaces</h1>
-                                                <p class="my-3"><span style="color: rgb(0, 0, 0);">Step inside the villa to find a seamless blend of traditional French architecture and contemporary design. Elegant furnishings, white, high-beamed ceilings and stone floors create a calm and relaxing atmosphere. The spacious main living room has windows on two sides that bathe the space in natural light and showcase spectacular views, whilst electric shutters shut out the heat of the day. A stylish kitchen is equipped with everything needed to prepare delicious meals from local ingredients and leads through to a second tranquil living room with a log burner for cooler autumn evenings</span></p>
+                                                <h1 class="text-uppercase fw-bold">{% block acc_sl2_tit %}{% endblock %}</h1>
+                                                <p class="my-3"><span style="color: rgb(0, 0, 0);">{% block acc_sl2_des %}{% endblock %}</span></p>
                                             </div>
                                         </div>
                                     </div>
@@ -105,8 +119,8 @@
                                     <div class="row">
                                         <div class="col-md-6 col-xl-4 offset-md-2">
                                             <div class="carousel-text-bg">
-                                                <h1 class="text-uppercase fw-bold">Bedrooms and Suites</h1>
-                                                <p class="my-3"><span style="color: rgb(0, 0, 0);">Comfortably accommodating eight guests in three doubles and one twin room, each bedroom is elegantly and individually styled to suit the age of the property, with cool cotton bed linen and towels adding further touches of luxury. Thought has been given to keeping youngsters safe and amused in the early mornings, with the large first floor landing equipped with TV, Xbox, DVDs and games. There is a family bathroom with shower and a separate toilet on the first floor, and a ground floor shower room with toilet that is easily accessible from the pool area.</span></p>
+                                                <h1 class="text-uppercase fw-bold">{% block acc_sl3_tit %}{% endblock %}</h1>
+                                                <p class="my-3"><span style="color: rgb(0, 0, 0);">{% block acc_sl3_des %}{% endblock %}</span></p>
                                             </div>
                                         </div>
                                     </div>
@@ -117,15 +131,15 @@
                                     <div class="row">
                                         <div class="col-md-6 col-xl-4 offset-md-2">
                                             <div class="carousel-text-bg">
-                                                <h1 class="text-uppercase fw-bold">Outdoor Delights</h1>
-                                                <p class="my-3"><span style="color: rgb(0, 0, 0);">The large pool area surrounded by olive trees is perfectly designed and equipped for fun, relaxing and eating outside. After barbequing by the pool you and your guests can eat comfortably together under the wisteria edged canopy, before sunbathing or relaxing in the shaded poolside lounge area. A second, but connected, covered terrace offers space for table tennis and board games whilst protected from the sun. Bounded by a disused railway line and wooded hillside to the rear, the villa, pool and garden cannot be overlooked.</span></p>
+                                                <h1 class="text-uppercase fw-bold"{% block acc_sl4_tit %}{% endblock %}></h1>
+                                                <p class="my-3"><span style="color: rgb(0, 0, 0);">{% block acc_sl4_des %}{% endblock %}</span></p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div><a class="carousel-control-prev" href="#carousel-1" role="button" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span><span class="visually-hidden">Previous</span></a><a class="carousel-control-next" href="#carousel-1" role="button" data-bs-slide="next"><span class="carousel-control-next-icon"></span><span class="visually-hidden">Next</span></a></div>
+                        <div><a class="carousel-control-prev" href="#carousel-1" role="button" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span><span class="visually-hidden">{% block acc_sli_pre %}{% endblock %}</span></a><a class="carousel-control-next" href="#carousel-1" role="button" data-bs-slide="next"><span class="carousel-control-next-icon"></span><span class="visually-hidden">{% block acc_sli_nex %}{% endblock %}</span></a></div>
                         <div class="carousel-indicators"><button type="button" data-bs-target="#carousel-1" data-bs-slide-to="0" class="active"></button> <button type="button" data-bs-target="#carousel-1" data-bs-slide-to="1"></button> <button type="button" data-bs-target="#carousel-1" data-bs-slide-to="2"></button> <button type="button" data-bs-target="#carousel-1" data-bs-slide-to="3"></button></div>
                     </div>
                 </div>
@@ -135,22 +149,22 @@
                     <div class="row gy-3 row-cols-sm-2 row-cols-md-4 row-cols-lg-4 row-cols-xl-4 row-cols-xxl-4">
                         <div class="col text-center">
                             <div class="border rounded border-5 border-primary-subtle rounded-5 service-card" id="house-card"><img class="front-icon" src="{{ url_for('static', filename='img/icons/house.svg') }}">
-                                <div><span>House</span></div>
+                                <div><span>{% block acc_inf_hou %}{% endblock %}</span></div>
                             </div>
                         </div>
                         <div class="col text-center">
                             <div class="border rounded border-5 border-primary-subtle rounded-5 service-card" id="guest-card"><img class="front-icon" src="{{ url_for('static', filename='img/icons/people.svg') }}">
-                                <div><span>8 Guests</span></div>
+                                <div><span>{% block acc_inf_gue %}{% endblock %}</span></div>
                             </div>
                         </div>
                         <div class="col text-center">
                             <div class="border rounded border-5 border-primary-subtle rounded-5 service-card" id="bedroom-card"><img class="front-icon" src="{{ url_for('static', filename='img/icons/bedtime.svg') }}">
-                                <div><span>4 Bedrooms</span></div>
+                                <div><span>{% block acc_inf_bed %}{% endblock %}</span></div>
                             </div>
                         </div>
                         <div class="col text-center">
                             <div class="border rounded border-5 border-primary-subtle rounded-5 service-card" id="toilet-card"><img class="front-icon" src="{{ url_for('static', filename='img/icons/bathtub.svg') }}">
-                                <div><span>2 Bathrooms</span></div>
+                                <div><span>{% block acc_inf_bat %}{% endblock %}</span></div>
                             </div>
                         </div>
                     </div>
@@ -161,21 +175,33 @@
                             <div class="d-flex flex-column" id="amenties" style="margin-right: auto;">
                                 <h4>Amenties</h4>
                                 <div class="row gy-lg-3 row-cols-2 row-cols-sm-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-2 row-cols-xxl-2 g-2 g-lg-3" style="max-width: 600px;">
-                                    <div class="col-auto amenties-columns"><img class="amentie-icon" src="{{ url_for('static', filename='img/icons/wifi.svg') }}"><span class="d-inline-block amentie-icon">Free Wifi</span></div>
-                                    <div class="col-auto amenties-columns"><img class="amentie-icon" src="{{ url_for('static', filename='img/icons/swimming-pool.svg') }}"><span class="d-inline-block amentie-icon">Swimming Pool</span></div>
-                                    <div class="col-auto amenties-columns"><img class="amentie-icon" src="{{ url_for('static', filename='img/icons/kitchen.svg') }}"><span class="d-inline-block amentie-icon">Kitchen</span></div>
-                                    <div class="col-auto amenties-columns"><img class="amentie-icon" src="{{ url_for('static', filename='img/icons/washing-machine.svg') }}"><span class="d-inline-block amentie-icon">Washing Machine</span></div>
-                                    <div class="col-auto amenties-columns"><img class="amentie-icon" src="{{ url_for('static', filename='img/icons/paw-print.svg') }}"><span class="d-inline-block amentie-icon">Pets Welcome</span></div>
-                                    <div class="col-auto amenties-columns"><img class="amentie-icon" src="{{ url_for('static', filename='img/icons/kid.svg') }}"><span class="d-inline-block amentie-icon">Child Friendly</span></div>
+                                    <div class="col-auto amenties-columns"><img class="amentie-icon" src="{{ url_for('static', filename='img/icons/wifi.svg') }}"><span class="d-inline-block amentie-icon">{% block acc_inf_sml_wif %}{% endblock %}</span></div>
+                                    <div class="col-auto amenties-columns"><img class="amentie-icon" src="{{ url_for('static', filename='img/icons/swimming-pool.svg') }}"><span class="d-inline-block amentie-icon">{% block acc_inf_sml_swi %}{% endblock %}</span></div>
+                                    <div class="col-auto amenties-columns"><img class="amentie-icon" src="{{ url_for('static', filename='img/icons/kitchen.svg') }}"><span class="d-inline-block amentie-icon">{% block acc_inf_sml_kit %}{% endblock %}</span></div>
+                                    <div class="col-auto amenties-columns"><img class="amentie-icon" src="{{ url_for('static', filename='img/icons/washing-machine.svg') }}"><span class="d-inline-block amentie-icon">{% block acc_inf_sml_was %}{% endblock %}</span></div>
+                                    <div class="col-auto amenties-columns"><img class="amentie-icon" src="{{ url_for('static', filename='img/icons/paw-print.svg') }}"><span class="d-inline-block amentie-icon">{% block acc_inf_sml_pet %}{% endblock %}</span></div>
+                                    <div class="col-auto amenties-columns"><img class="amentie-icon" src="{{ url_for('static', filename='img/icons/kid.svg') }}"><span class="d-inline-block amentie-icon">{% block acc_inf_sml_chi %}{% endblock %}</span></div>
                                 </div>
-                                <div style="padding: 5px;"><button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#amentiesModal">Show all 50 Amenties</button></div>
+                                <div style="padding: 5px;"><button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#amentiesModal">{% block acc_inf_amn %}{% endblock %}</button></div>
                             </div>
                         </div>
                         <div class="col">
                             <div id="information" class="text-end" style="margin-left: auto;">
-                                <h4>Information</h4>
+                                <h4>{% block acc_inf_inf_tit %}{% endblock %}</h4>
                                 <div class="text-start">
-                                    <p>Offering secure parking for up to 4 cars in private grounds of over 1600 m2 with 18 olive trees thro<span id="dots">...</span><span id="more" class="hidden">ugh automatic gates.<br><br>Originally built as a stone barn and sympathetically converted and extended, it offers a mix of traditional and modern living spaces.<br><br>Stone Mas, stunning view in an elevated position at the very edge of the town, the house and grounds are not overlooked and have unbroken views along the river Ceze and across a wooded valley to the hills beyond, yet the property is only minutes from supermarkets and the full facilities of Sainte Ambroix - an historic, thriving medieval market town with many cafés and restaurants.<br><br>Outside areas offer a variety of both sunny and shaded spaces to eat, relax or play: two large covered patios with dining tables, outdoor cooking area, 40m2 pool and additional poolside shaded seating area.<br><br>The main living room and the open-plan, well equipped kitchen are bright and modern with full glass walls on two sides and electric shutters to keep them cool. A second cosy sitting room with feature fireplace and wood burner leads on to an office equipped with printer and monitor should you need to work during your stay.<br><br>Four bedooms (three double one twin) are individually styled, with the two main rooms offering fantastic views over the valley. There is a family shower room with toilet and a second toilet on the first floor, as well as a shower room with toilet on the ground floor.<br><br>Saint Ambroix is in the upper valley of the Cèze; located at the eastern edge of the Cevennes only 30 minutes southwest of the Ardèche Gorges and the unmissable Vallon Pont d’Arc. Ideally located for exploring the “villages de caractère” such as Lussan and its potteries, antiques market in Barjac or the historic market town of Uzès, the property is also around an hour and a quarter drive from three world heritage sites; Pont du Gard, the amphitheatre at Orange, the Palais de Pape at Avignon.<br><br>For sports enthusiasts there are water and rope adventures in the Cèze, the Chassezac or the Barrage de Villefort, plus numerous climbing and mountaineering, walking, hiking, and cycling routes.<br><br>Rooms:<br>• 4 bedrooms sleeping 8<br>• 2 shower rooms with toilets<br>• Separate toilet<br>• 2 sitting rooms<br>• Kitchen<br>• Study/office<br>• 2 large outdoor covered dining areas/tables<br>• Outdoor covered lounge area<br><br>Equipped with:<br>• 40m2 Pool with jacuzzi (guarded by a pool alarm), shaded seating, sunbeds and parasols<br>• Large screen smart TV, DVD player, Xbox, Wii, bluetooth speaker, digital radio, games and books<br>• Fibre broad band<br>• Computer monitor and printer<br>• Well equipped kitchen including Tassimo coffee machine, food processor, wine fridge<br>• Washer<br>• Table tennis table and outdoor games<br>• Stone BBQ plus webber kettle BBQ<br><br>Arrival/Departure only on Sunday<br><br>Included<br>Linen is included in the price (bedlinen, towels for bathroom and pool).<br>Additional linen is available if required during your stay and can be provided for 25€ttc/person per stay for a full set. This can be ordered and paid for after booking.<br><br>Not-included<br>Tourism Tax<br>This is changed per adult per night and is collected on site by cheque or cash (except airbnb)<br><br>Cleaning<br>A compulsory "intermediate cleaning" fee of €200 is charged at the time of booking and corresponds to the disinfection and preparation of the house between two tenants.<br><br>We ask our tenants to leave the house clean and tidy and as they found it when they leave (kitchen and sanitary facilities clean, fridge and cupboards emptied, bins emptied and recycling removed, etc.).<br><br>Pets<br>Pets are accepted in the house but we will ask you to pay a pet fee (30€/animal/week) to cover the increased cleaning time required and ask owners to be careful not to leave dog poop in the garden to spoil the stay of subsequent guests.<br>It must be advised prior to your stay that you are bringing a pet.<br><br>Damage<br>The deposit of €500 euros is not cashed unless damage is caused to the property.<br>Our secure deposit system (Swikly) simply holds the amount on your credit card.</span></p><button class="btn" id="show-button" type="button"><span style="text-decoration: underline;">Read More</span></button><button class="btn hidden" id="hide-button" type="button"><span style="text-decoration: underline;">Hide</span></button>
+                                    <p>
+                                        {% block acc_inf_inf_des %}{% endblock %}
+                                        <span id="dots">...</span>
+                                        <span id="more" class="hidden">
+                                            {% block acc_inf_inf_des2 %}{% endblock %}
+                                        </span>
+                                    </p>
+                                    <button class="btn" id="show-button" type="button">
+                                        <span style="text-decoration: underline;">{% block acc_inf_inf_rea %}{% endblock %}</span>
+                                    </button>
+                                    <button class="btn hidden" id="hide-button" type="button">
+                                        <span style="text-decoration: underline;">{% block acc_inf_inf_hid %}{% endblock %}</span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -271,8 +297,8 @@
         <div class="container">
             <div id="rat-title" class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="text-uppercase section-heading">Rates &amp; Availability</h2>
-                    <h3 class="text-muted section-subheading">Information about the rates &amp; Availability</h3>
+                    <h2 class="text-uppercase section-heading">{% block rat_tit %}{% endblock %}</h2>
+                    <h3 class="text-muted section-subheading">{% block rat_des %}{% endblock %}</h3>
                 </div>
             </div>
             <div id="rat-rates" class="row row-cols-3 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-3 row-cols-xxl-3">
@@ -282,22 +308,24 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th class="table-cell-rates"><em>Early Season</em></th>
-                                        <th class="table-cell-rates"><em><span style="font-weight: normal !important;">Rates Per</span></em>&nbsp;<em><span style="font-weight: normal !important;">Week</span></em></th>
+                                        <th class="table-cell-rates"><em>{% block rat_ear_tit %}{% endblock %}</em></th>
+                                        <th class="table-cell-rates"><em>
+                                            <span style="font-weight: normal !important;">{% block rat_ear_rat %}{% endblock %}</span>
+                                        </em></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td class="table-cell-rates">January - March</td>
-                                        <td class="table-cell-rates"><span style="color: rgb(102, 102, 102);">€375</span></td>
+                                        <td class="table-cell-rates">{% block rat_ear_jan %}{% endblock %}</td>
+                                        <td class="table-cell-rates"><span style="color: rgb(102, 102, 102);">{% block rat_ear_jan_rat %}{% endblock %}</span></td>
                                     </tr>
                                     <tr>
-                                        <td class="table-cell-rates">April</td>
-                                        <td class="table-cell-rates"><span style="color: rgb(102, 102, 102);">€475</span></td>
+                                        <td class="table-cell-rates">{% block rat_ear_apr %}{% endblock %}</td>
+                                        <td class="table-cell-rates"><span style="color: rgb(102, 102, 102);">{% block rat_ear_apr_rat %}{% endblock %}</span></td>
                                     </tr>
                                     <tr>
-                                        <td class="table-cell-rates">May - June</td>
-                                        <td class="table-cell-rates"><span style="color: rgb(102, 102, 102);">€575</span></td>
+                                        <td class="table-cell-rates">{% block rat_ear_may %}{% endblock %}</td>
+                                        <td class="table-cell-rates"><span style="color: rgb(102, 102, 102);">{% block rat_ear_may_rat %}{% endblock %}</span></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -310,14 +338,14 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th class="table-cell-rates"><em>High Season</em></th>
-                                        <th class="table-cell-rates"><em><span style="font-weight: normal !important;">Rates Per</span></em>&nbsp;<em><span style="font-weight: normal !important;">Week</span></em></th>
+                                        <th class="table-cell-rates"><em>{% block rat_hig_tit %}{% endblock %}</em></th>
+                                        <th class="table-cell-rates"><em><span style="font-weight: normal !important;">{% block rat_hig_rat %}{% endblock %}</span></em></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td class="table-cell-rates">July - August</td>
-                                        <td class="table-cell-rates"><span style="color: rgb(102, 102, 102);">€650</span></td>
+                                        <td class="table-cell-rates">{% block rat_hig_jul %}{% endblock %}</td>
+                                        <td class="table-cell-rates"><span style="color: rgb(102, 102, 102);">{% block rat_hig_jul_rat %}{% endblock %}</span></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -330,26 +358,26 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th class="table-cell-rates"><em>Early Season</em></th>
-                                        <th class="table-cell-rates"><em><span style="font-weight: normal !important;">Rates Per</span></em>&nbsp;<em><span style="font-weight: normal !important;">Week</span></em></th>
+                                        <th class="table-cell-rates"><em>{% block rat_lat_tit %}{% endblock %}</em></th>
+                                        <th class="table-cell-rates"><em><span style="font-weight: normal !important;">{% block rat_lat_rat %}{% endblock %}</span></em></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td class="table-cell-rates">September</td>
-                                        <td class="table-cell-rates"><span style="color: rgb(102, 102, 102);">€575</span></td>
+                                        <td class="table-cell-rates">{% block rat_lat_sep %}{% endblock %}</td>
+                                        <td class="table-cell-rates"><span style="color: rgb(102, 102, 102);">{% block rat_lat_sep_rat %}{% endblock %}</span></td>
                                     </tr>
                                     <tr>
-                                        <td class="table-cell-rates">October</td>
-                                        <td class="table-cell-rates"><span style="color: rgb(102, 102, 102);">€475</span></td>
+                                        <td class="table-cell-rates">{% block rat_lat_oct %}{% endblock %}</td>
+                                        <td class="table-cell-rates"><span style="color: rgb(102, 102, 102);">{% block rat_lat_oct_rat %}{% endblock %}</span></td>
                                     </tr>
                                     <tr>
-                                        <td class="table-cell-rates">November</td>
-                                        <td class="table-cell-rates"><span style="color: rgb(102, 102, 102);">€375</span></td>
+                                        <td class="table-cell-rates">{% block rat_lat_nov %}{% endblock %}</td>
+                                        <td class="table-cell-rates"><span style="color: rgb(102, 102, 102);">{% block rat_lat_nov_rat %}{% endblock %}</span></td>
                                     </tr>
                                     <tr>
-                                        <td class="table-cell-rates">December</td>
-                                        <td class="table-cell-rates"><span style="color: rgb(102, 102, 102);">€375</span></td>
+                                        <td class="table-cell-rates">{% block rat_lat_dec %}{% endblock %}</td>
+                                        <td class="table-cell-rates"><span style="color: rgb(102, 102, 102);">{% block rat_lat_dec_rat %}{% endblock %}</span></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -374,16 +402,21 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="text-uppercase section-heading">Our Area</h2>
-                    <h3 class="text-muted section-subheading">About the nearby Area</h3>
+                    <h2 class="text-uppercase section-heading">{% block are_tit %}{% endblock %}</h2>
+                    <h3 class="text-muted section-subheading">{% block are_des %}{% endblock %}</h3>
                     <div>
-                        <p><br><span style="color: rgb(0, 0, 0);">Around Sainte Ambroix:Sainte Ambroix river beach (5 minutes walk) https://www.saint-ambroix.fr/decouvrir-bouger/situation-geographique/la-ceze</span><br><span style="color: rgb(0, 0, 0);">Les Chevaux au Cantaure – horse riding - https://www.leschevauxducantaure.com</span><br><span style="color: rgb(0, 0, 0);">Prehistorama – Museum of the prehistoric era - http://www.prehistorama.com</span><br><span style="color: rgb(0, 0, 0);">Cap Canoe – canoe hire – https://capcanoe.fr</span><br><span style="color: rgb(0, 0, 0);">Acrobranche Indy Parc– Treetop rope advanture park - https://www.indy-parc.com</span><br><span style="color: rgb(0, 0, 0);">Grotte de la Cocalière (10 minutes) https://www.grotte-cocaliere.com/en/</span><br><span style="color: rgb(0, 0, 0);">Further afield:</span><br><span style="color: rgb(0, 0, 0);">Chateau de Montalet (10 minutes) – 12th century castle, partly ruined with staterooms now restored. https://clnunez13.wordpress.com</span><br><span style="color: rgb(0, 0, 0);">Les Petites Aiguieres / Les Grande Aiguieres – (15 Minutes) water-carved rock formations, with beautiful blue pools and waterfalls. https://www.theadventuredogs.com/gard/les-petites-aiguieres-avec-son-chien/ </span><br><span style="color: rgb(0, 0, 0);">Grotte de la Salamandre (20 minutes) - https://www.grottedelasalamandre.com/fr/</span><br><span style="color: rgb(0, 0, 0);">Barjac (20 minutes) – lovely old village - https://www.francethisway.com/places/barjac.php</span><br><span style="color: rgb(0, 0, 0);">Lussan (25 minutes) – village of character with 2 ruined castles - https://www.francethisway.com/places/lussan.php</span><br><span style="color: rgb(0, 0, 0);">Labastide de Virac (25 minutes) – Chateau des Roure, medieval castle with living museum www.chateaudesroure.com</span><br><span style="color: rgb(0, 0, 0);">Montclus (30 minutes) –Montclus is a tiny beautiful village and great place for walkers - https://www.francethisway.com/places/montclus.php</span><br><span style="color: rgb(0, 0, 0);">Pont D’Arc (30 minutes) – a huge, natural rock arch on the Ardèche river - https://www.francethisway.com/places/pontdarc.php</span><br><span style="color: rgb(0, 0, 0);">Vallon Pont D’Arc (30 minutes) – Starting point for many companies offering canoeing adventures - https://www.france-voyage.com/cities-towns/vallon-pont-d-arc-29653.htm</span><br><span style="color: rgb(0, 0, 0);">Yumping (en.yumping.fr) (30 minutes) – High ropes adventure.</span><br><span style="color: rgb(0, 0, 0);">Dinopedia Parc (30 minutes) – www.dinopedia-parc.fr</span><br><span style="color: rgb(0, 0, 0);">Uzès (40 minutes) – https://www.france-voyage.com/tourism/uzes-1420.html</span><br><span style="color: rgb(0, 0, 0);">Haribo museum – accueil.musee@haribo.com</span><br><span style="color: rgb(0, 0, 0);">Sainte Martin d’Ardeche (45 minutes) – Like the Pont D’Arc in miniature - https://www.francethisway.com/places/a/saint-martin-d-ardeche-ardeche.php</span><br><span style="color: rgb(0, 0, 0);">Pont du Gard (50 minutes) – UNESCO World Heritage Site and perhaps one of the most famous roman aqueducts in the world - https://pontdugard.fr/en</span><br><span style="color: rgb(0, 0, 0);">Villefort (lake) (55 minutes) – Climbing, caving and watersports. www.grandeurnature.48.com https://www.france-voyage.com/cities-towns/villefort-16898.htm</span><br><span style="color: rgb(0, 0, 0);">Nines (60 minutes) – Important outpost of the Roman empire, many well preserved Roman monuments including an Amphitheatre - https://www.francethisway.com/places/nimes.php</span><br><span style="color: rgb(0, 0, 0);">Orange (70 minutes) – has spectacular Roman amphitheater – UNESCO World Heritage Site - https://www.francethisway.com/places/orange.php</span><br><span style="color: rgb(0, 0, 0);">Avignon (80 minutes) – UNESCO World Heritage Site – Palais des Papes and the famous bridge and walled city - https://www.avignon-et-provence.com/en/tourism-provence/avignon</span><br><br></p>
+                        <div class="row gy-2 row-cols-sm-2 row-cols-md-4" style="margin: 20px;">
+                            <div class="col-3"><button class="btn btn-primary" onclick="addHistorical()" type="button">{% block are_his %}{% endblock %}</button></div>
+                            <div class="col"><button class="btn btn-primary" onclick="addActivities()" type="button">{% block are_act %}{% endblock %}</button></div>
+                            <div class="col-4"><button class="btn btn-primary" onclick="addLandscapes()" type="button">{% block are_sce %}{% endblock %}</button></div>
+                            <div class="col"><button class="btn btn-primary" onclick="addShops()" type="button">{% block are_sho %}{% endblock %}</button></div>
+                        </div>
                         <div style="display: none">
                             <input
                                 id="pac-input"
                                 class="controls"
                                 type="text"
-                                placeholder="Enter a location"
+                                placeholder="{% block are_map_pla %}{% endblock %}"
                             />
                         </div>
                         <div id="map"></div>
@@ -401,8 +434,8 @@
         <div class="container" style="background: rgba(254,209,54,0.68);padding-top: 75px;padding-bottom: 75px;border-color: rgba(254,209,54,0.32);">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="text-uppercase section-heading">Reservations</h2>
-                    <h3 class="text-muted section-subheading">Make a reservation here.</h3>
+                    <h2 class="text-uppercase section-heading">{% block res_tit %}{% endblock %}</h2>
+                    <h3 class="text-muted section-subheading">{% block res_des %}{% endblock %}</h3>
                 </div>
             </div>
             <div class="row" style="margin-right: 12px;margin-left: 12px;">
@@ -411,35 +444,35 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
-                                    <input class="form-control" name="message-name" type="text" id="name" placeholder="Name" required="">
+                                    <input class="form-control" name="message-name" type="text" id="name" placeholder="{% block res_nam %}{% endblock %}" required="">
                                     <small class="form-text text-danger flex-grow-1 lead"></small>
                                 </div>
                                 <div class="form-group mb-3">
-                                    <input class="form-control" name="message-email" type="email" id="email" placeholder="Email" required="">
+                                    <input class="form-control" name="message-email" type="email" id="email" placeholder="{% block res_ema %}{% endblock %}" required="">
                                     <small class="form-text text-danger lead"></small>
                                 </div>
                                 <div class="form-group mb-3">
-                                    <input class="form-control" name="message-arrival" type="tel" placeholder="Arrival (DD/MM/YY)" required="">
+                                    <input class="form-control" name="message-arrival" type="tel" placeholder="{% block res_arr %}{% endblock %}" required="">
                                     <small class="form-text text-danger lead"></small>
                                 </div>
                                 <div class="form-group mb-3">
-                                    <input class="form-control" name="message-departure" type="tel" placeholder="Departure (DD/MM/YY)" required="">
+                                    <input class="form-control" name="message-departure" type="tel" placeholder="{% block res_dep %}{% endblock %}" required="">
                                     <small class="form-text text-danger lead"></small>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
-                                    <input class="form-control" name="message-phone" type="tel" placeholder="Phone Number" required="">
+                                    <input class="form-control" name="message-phone" type="tel" placeholder="{% block res_pho %}{% endblock %}" required="">
                                     <small class="form-text text-danger lead"></small>
                                 </div>
                                 <div class="form-group mb-3">
-                                    <textarea class="form-control" name="message-message" id="message" placeholder="Your Message *" required=""></textarea>
+                                    <textarea class="form-control" name="message-message" id="message" placeholder="{% block res_mes %}{% endblock %}" required=""></textarea>
                                     <small class="form-text text-danger lead"></small></div>
                             </div>
                             <div class="w-100"></div>
                             <div class="col-lg-12 text-center">
                                 <div id="success"></div>
-                                <button name="submit-message" class="btn btn-primary btn-xl text-uppercase" id="sendMessageButton" type="submit">Send Message</button>
+                                <button name="submit-message" class="btn btn-primary btn-xl text-uppercase" id="sendMessageButton" type="submit">{% block res_sen %}{% endblock %}</button>
                             </div>
                         </div>
                     </form>
@@ -447,7 +480,7 @@
             </div>
             <div class="row">
                 <div class="text-center">
-                    <h3 class="text-muted section-subheading" style="margin-bottom: 0px !important; margin-top: 20px !important">Alternatively contact us at: email@email.com or +44 1234 123456</h3>
+                    <h3 class="text-muted section-subheading" style="margin-bottom: 0px !important; margin-top: 20px !important">{% block res_con %}{% endblock %}</h3>
                 </div>
             </div>
         </div>
@@ -457,8 +490,8 @@
             <div class="container" style="background: rgba(0,0,0,0.58);padding-top: 75px;padding-bottom: 75px;padding-left: 24px;padding-right: 24px;height: 100%;">
                 <div class="row">
                     <div class="col-lg-12 text-center">
-                        <h2 class="text-uppercase section-heading" style="color: rgb(255,255,255);">Guestbook</h2>
-                        <h1 class="section-subheading" style="color: rgba(255,255,255,0.75);--bs-text-opacity: 1;font-size: 16px;">See what other people have said about us!</h1>
+                        <h2 class="text-uppercase section-heading" style="color: rgb(255,255,255);">{% block gue_tit %}{% endblock %}</h2>
+                        <h1 class="section-subheading" style="color: rgba(255,255,255,0.75);--bs-text-opacity: 1;font-size: 16px;">{% block gue_des %}{% endblock %}</h1>
                     </div>
                 </div>
                 <div class="overflow-auto" style="width: 100%; height: 100%">
@@ -483,7 +516,7 @@
                                             {% endfor %}
                                         </div>
                                         <h4 class="card-title">{{ review.title }}</h4>
-                                        <h6 class="card-subtitle card-r-subtitle">Written by: {{ review.user }}</h6>
+                                        <h6 class="card-subtitle card-r-subtitle">{% block gue_wri %}{% endblock %}: {{ review.user }}</h6>
                                         <p class="card-text">{{ review.description }}</p>
                                         {% if user.is_authenticated %}
                                         <form method="POST">
@@ -519,11 +552,12 @@
                                             {% endfor %}
                                         </div>
                                         <h4 class="card-title">{{ review.title }}</h4>
-                                        <h6 class="card-subtitle card-r-subtitle">Written by: {{ review.user }}</h6>
+                                        <h6 class="card-subtitle card-r-subtitle">{% block gue_sec_wri %}{% endblock %}: {{ review.user }}</h6>
+                                        <h6 class="card-subtitle card-r-subtitle">{{ review.email }}</h6>
                                         <p class="card-text">{{ review.description }}</p>
                                         <form method="POST">
-                                            <button class="btn btn-primary" name="submit-review-approval" value="{{ review.id }}" type="submit">Approve Review</button>
-                                            <button class="btn btn-danger" name="submit-review-delete" value="{{ review.id }}" type="submit">Delete Review</button>
+                                            <button class="btn btn-primary" name="submit-review-approval" value="{{ review.id }}" type="submit">{% block gue_app %}{% endblock %}</button>
+                                            <button class="btn btn-danger" name="submit-review-delete" value="{{ review.id }}" type="submit">{% block gue_del %}{% endblock %}</button>
                                         </form>
                                     </div>
                                 </div>
@@ -536,7 +570,7 @@
                     <div class="row">
                         <div class="col-lg-12 text-center">
                             <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#reviewModal">
-                                <span><strong><span style="color: rgba(255, 255, 255, 0.75);">Looking to leave a review? Click Here!</span></strong></span>
+                                <span><strong><span style="color: rgba(255, 255, 255, 0.75);">{% block gue_rev %}{% endblock %}</span></strong></span>
                             </button>
                         </div>
                     </div>
@@ -547,23 +581,22 @@
     <footer>
         <div class="container">
             <div class="row">
-                <div class="col-md-4"><span class="copyright">© Mas de Barras 2023</span></div>
+                <div class="col-md-4"><span class="copyright">{% block foo_own %}{% endblock %}</span></div>
                 <div class="col-md-4">
                     <ul class="list-inline social-buttons">
-                        <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li class="list-inline-item"></li>
                     </ul>
                 </div>
                 <div class="col-md-4">
                     {% if user.is_authenticated %}
                     <form method="POST">
                         <button name="submit-logout" type="submit" style="border: 0px;background: rgba(0,0,0,0);">
-                            Logout
+                            {% block foo_log %}{% endblock %}
                         </button>
                     </form>
                     {% else %}
                     <button type="button" data-bs-toggle="modal" data-bs-target="#portalModal" style="border: 0px;background: rgba(0,0,0,0);">
-                        <span class="copyright">Staff Portal</span>
+                        <span class="copyright">{% block foo_por %}{% endblock %}</span>
                     </button>
                     {% endif %}
                 </div>
@@ -575,56 +608,113 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Amenties</h4><button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
+                    <h4 class="modal-title">{% block amn_tit %}{% endblock %}</h4><button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body padding 0p" style="padding: 0px;">
                     <div class="border rounded-0 amenties-holder">
                         <div class="h-100 w-100">
-                            <h5>Pool</h5>
-                            <p><span style="color: rgb(5, 50, 51);">Swimming pool</span><br><span style="color: rgb(5, 50, 51);">Private pool</span></p>
+                            <h5>{% block amn_poo %}{% endblock %}</h5>
+                            <p>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_poo_swi %}{% endblock %}</span><br>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_poo_pri %}{% endblock %}</span>
+                            </p>
                         </div>
                     </div>
                     <div class="border rounded-0 amenties-holder">
                         <div class="h-100 w-100">
-                            <h5><strong><span style="color: rgb(5, 50, 51);">General</span></strong></h5>
-                            <p><span style="color: rgb(5, 50, 51);">Free WiFi</span><br><span style="color: rgb(5, 50, 51);">Washing Machine</span><br><span style="color: rgb(5, 50, 51);">Wireless</span><br><span style="color: rgb(5, 50, 51);">Fireplace</span><br><span style="color: rgb(5, 50, 51);">24-hour checkin</span><br><span style="color: rgb(5, 50, 51);">Hair Dryer</span><br><span style="color: rgb(5, 50, 51);">Hangers</span><br><span style="color: rgb(5, 50, 51);">Iron</span><br><span style="color: rgb(5, 50, 51);">Laptop Friendly workspace</span><br><span style="color: rgb(5, 50, 51);">TV</span><br><span style="color: rgb(5, 50, 51);">Outdoor grill</span><br><span style="color: rgb(5, 50, 51);">Garden</span><br><span style="color: rgb(5, 50, 51);">Hot water</span><br><span style="color: rgb(5, 50, 51);">Private entrance</span><br><span style="color: rgb(5, 50, 51);">Cooking basics</span></p>
+                            <h5><strong><span style="color: rgb(5, 50, 51);">{% block amn_gen %}{% endblock %}</span></strong></h5>
+                            <p>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_gen_wif %}{% endblock %}</span><br>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_gen_was %}{% endblock %}</span><br>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_gen_wir %}{% endblock %}</span><br>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_gen_fir %}{% endblock %}</span><br>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_gen_che %}{% endblock %}</span><br>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_gen_hai %}{% endblock %}</span><br>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_gen_han %}{% endblock %}</span><br>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_gen_iro %}{% endblock %}</span><br>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_gen_lap %}{% endblock %}</span><br>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_gen_tv %}{% endblock %}</span><br>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_gen_gri %}{% endblock %}</span><br>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_gen_gar %}{% endblock %}</span><br>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_gen_hot %}{% endblock %}</span><br>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_gen_ent %}{% endblock %}</span><br>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_gen_coo %}{% endblock %}</span></p>
                         </div>
                     </div>
                     <div class="border rounded-0 amenties-holder">
                         <div class="h-100 w-100">
-                            <h5><strong><span style="color: rgb(5, 50, 51);">Kitchen &amp; dining</span></strong></h5>
-                            <p><span style="color: rgb(5, 50, 51);">Kitchen</span><br><span style="color: rgb(5, 50, 51);">Toaster</span><br><span style="color: rgb(5, 50, 51);">Dishwasher</span><br><span style="color: rgb(5, 50, 51);">Microwave</span><br><span style="color: rgb(5, 50, 51);">Oven</span><br><span style="color: rgb(5, 50, 51);">Electric kettle</span><br><span style="color: rgb(5, 50, 51);">Coffee/tea maker</span><br><span style="color: rgb(5, 50, 51);">Stove</span><br><span style="color: rgb(5, 50, 51);">Refrigerator</span><br><span style="color: rgb(5, 50, 51);">High chair</span><br><span style="color: rgb(5, 50, 51);">Kitchen utensils</span><br><span style="color: rgb(5, 50, 51);">Dining area</span><br><span style="color: rgb(5, 50, 51);">Dining table</span><br><span style="color: rgb(5, 50, 51);">Barbeque utensils</span><br><span style="color: rgb(5, 50, 51);">Blender</span><br><span style="color: rgb(5, 50, 51);">Freezer</span><br><span style="color: rgb(5, 50, 51);">Wine glasses</span></p>
+                            <h5><strong><span style="color: rgb(5, 50, 51);">{% block amn_kit %}{% endblock %}</span></strong></h5>
+                            <p>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_kit_kit %}{% endblock %}</span><br>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_kit_toa %}{% endblock %}</span><br>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_kit_dis %}{% endblock %}</span><br>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_kit_mic %}{% endblock %}</span><br>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_kit_ove %}{% endblock %}</span><br>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_kit_ket %}{% endblock %}</span><br>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_kit_cof %}{% endblock %}</span><br>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_kit_sto %}{% endblock %}</span><br>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_kit_ref %}{% endblock %}</span><br>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_kit_hig %}{% endblock %}</span><br>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_kit_ute %}{% endblock %}</span><br>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_kit_din %}{% endblock %}</span><br>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_kit_tab %}{% endblock %}</span><br>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_kit_bar %}{% endblock %}</span><br>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_kit_ble %}{% endblock %}</span><br>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_kit_fre %}{% endblock %}</span><br>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_kit_win %}{% endblock %}</span>
+                            </p>
                         </div>
                     </div>
                     <div class="border rounded-0 amenties-holder">
                         <div class="h-100 w-100">
-                            <h5><strong><span style="color: rgb(5, 50, 51);">Policy</span></strong></h5>
-                            <p><span style="color: rgb(5, 50, 51);">Pets allowed</span><br><span style="color: rgb(5, 50, 51);">Suitable for children</span><br><span style="color: rgb(5, 50, 51);">Suitable for infants</span></p>
+                            <h5><strong><span style="color: rgb(5, 50, 51);">{% block amn_pol %}{% endblock %}</span></strong></h5>
+                            <p>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_pol_pet %}{% endblock %}</span><br>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_pol_chi %}{% endblock %}</span><br>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_pol_inf %}{% endblock %}</span>
+                            </p>
                         </div>
                     </div>
                     <div class="border rounded-0 amenties-holder">
                         <div class="h-100 w-100">
-                            <h5><strong><span style="color: rgb(5, 50, 51);">Safety</span></strong></h5>
-                            <p><span style="color: rgb(5, 50, 51);">S</span><span style="color: rgb(5, 50, 51);">moke detector</span><br><span style="color: rgb(5, 50, 51);">Carbon Monoxide Detector</span><br><span style="color: rgb(5, 50, 51);">First aid kit</span><br><span style="color: rgb(5, 50, 51);">Fire Extinguisher</span></p>
+                            <h5><strong><span style="color: rgb(5, 50, 51);">{% block amn_saf %}{% endblock %}</span></strong></h5>
+                            <p>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_saf_smo %}{% endblock %}</span><br>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_saf_car %}{% endblock %}</span><br>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_saf_aid %}{% endblock %}</span><br>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_saf_fir %}{% endblock %}</span>
+                            </p>
                         </div>
                     </div>
                     <div class="border rounded-0 amenties-holder">
                         <div class="h-100 w-100">
-                            <h5><span style="color: rgb(5, 50, 51);">Parking / Car</span></h5>
-                            <p><span style="color: rgb(5, 50, 51);">Free parking</span><br><span style="color: rgb(5, 50, 51);">Car necessary</span></p>
+                            <h5><span style="color: rgb(5, 50, 51);">{% block amn_car %}{% endblock %}</span></h5>
+                            <p>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_car_par %}{% endblock %}</span><br>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_car_nec %}{% endblock %}</span>
+                            </p>
                         </div>
                     </div>
                     <div class="border rounded-0 amenties-holder">
                         <div class="h-100 w-100">
-                            <h5><strong><span style="color: rgb(5, 50, 51);">Entertainment</span></strong></h5>
-                            <p><span style="color: rgb(5, 50, 51);">Books</span><br><span style="color: rgb(5, 50, 51);">DVD</span><br><span style="color: rgb(5, 50, 51);">Ping pong table</span><br><span style="color: rgb(5, 50, 51);">Video games</span><br><span style="color: rgb(5, 50, 51);">Board games</span></p>
+                            <h5><strong><span style="color: rgb(5, 50, 51);">{% block amn_ent %}{% endblock %}</span></strong></h5>
+                            <p>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_ent_boo %}{% endblock %}</span><br>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_ent_dvd %}{% endblock %}</span><br>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_ent_pin %}{% endblock %}</span><br>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_ent_vid %}{% endblock %}</span><br>
+                                <span style="color: rgb(5, 50, 51);">{% block amn_ent_boa %}{% endblock %}</span>
+                            </p>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <div class="h-100 w-100">
-                        <h5><strong><span style="color: rgb(5, 50, 51);">Cleanliness</span></strong></h5>
-                        <p><span style="color: rgb(5, 50, 51);">Enhanced Cleaning Practices</span><br><span style="color: rgb(5, 50, 51);">Cleaning</span></p>
+                        <h5><strong><span style="color: rgb(5, 50, 51);">{% block amn_cle %}{% endblock %}</span></strong></h5>
+                        <p>
+                            <span style="color: rgb(5, 50, 51);">{% block amn_cle_enh %}{% endblock %}</span><br>
+                            <span style="color: rgb(5, 50, 51);">{% block amn_cle_cle %}{% endblock %}</span>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -635,12 +725,12 @@
             <div class="modal-content">
                 <form method="POST">
                 <div class="modal-header">
-                    <h4 class="modal-title">Leave A Review</h4><button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
+                    <h4 class="modal-title">{% block rev_tit %}{% endblock %}</h4><button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body" style="border-bottom: var(--bs-modal-footer-border-width) solid var(--bs-modal-footer-border-color);">
                     <div class="d-flex justify-content-start justify-content-xl-center align-items-xl-center" style="width: 100%;">
                         <div class="flex-grow-1" style="height: 40px;">
-                            <textarea class="flex-grow-1 form-control" name="review-title" id="reviewTitle" placeholder="Review Title" style="margin-right: 10px;"></textarea>
+                            <input class="flex-grow-1 form-control" name="review-title" id="reviewTitle" placeholder="{% block rev_tit_tit %}{% endblock %}" style="margin-right: 10px; height: 100%; width: 90%;"></textarea>
                         </div>
                         <div class="d-xl-flex justify-content-xl-center align-items-xl-center btn-group" style="height: 40px;">
                             <div id="starratings" class="btn-group" name="StarRatings">
@@ -715,18 +805,18 @@
                 </div>
                 <div class="modal-body" style="border-bottom: var(--bs-modal-footer-border-width) solid var(--bs-modal-footer-border-color);">
                     <div class="d-inline-flex justify-content-md-center" style="width: 100%;height: 40px;">
-                        <textarea class="flex-grow-1 form-control" name="review-name" id="review-name" placeholder="Your Name" style="margin-right: 10px;"></textarea>
-                        <textarea class="flex-grow-1 form-control" name="review-email" id="review-email" placeholder="Your Email" style="margin-left: 10px;"></textarea>
+                        <input class="flex-grow-1 form-control" name="review-name" id="review-name" placeholder="{% block rev_nam %}{% endblock %}" style="margin-right: 10px;"></input>
+                        <input class="flex-grow-1 form-control" name="review-email" id="review-email" placeholder="{% block rev_ema %}{% endblock %}" style="margin-left: 10px;"></input>
                     </div>
                 </div>
                 <div class="modal-body">
-                    <textarea id="reviewDescription" class="form-control" name="review-description" style="width: 100%;min-height: 100px;" placeholder="Review Message"></textarea>
+                    <textarea id="reviewDescription" class="form-control" name="review-description" style="width: 100%;min-height: 100px;" placeholder="{% block rev_mes %}{% endblock %}"></textarea>
                 </div>
                 <div class="modal-footer">
                     <div class="d-flex">
                         <div></div>
-                        <button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button>
-                        <button class="btn btn-primary form-control" type="submit" name="submit-review">Submit</button>
+                        <button class="btn btn-light" type="button" data-bs-dismiss="modal">{% block rev_clo %}{% endblock %}</button>
+                        <button class="btn btn-primary form-control" type="submit" name="submit-review">{% block rev_sub %}{% endblock %}</button>
                     </div>
                 </div>
                 </form>
@@ -737,13 +827,13 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Staff Portal</h4><button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
+                    <h4 class="modal-title">{% block por_tit %}{% endblock %}</h4><button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
                 </div>
                 <form method="POST">
                     <div class="modal-body" style="border-bottom: var(--bs-modal-footer-border-width) solid var(--bs-modal-footer-border-color);">
                         <div style="width: 100%; height: 70px;">
                             <div style="height: 40px;">
-                                <label for="username">Username</label>
+                                <label for="username">{% block por_use %}{% endblock %}</label>
                                 <input class="form-control" name="username" id="username" style="height: 100%; width: 100%;"></input>
                             </div>
                         </div>
@@ -751,15 +841,15 @@
                     <div class="modal-body">
                         <div style="width: 100%; height: 70px;">
                             <div style="height: 40px;">
-                                <label for="password">Password</label>
-                                <input class="form-control" name="password" id="password" style="height: 100%; width: 100%;"></input>
+                                <label for="password">{% block por_pas %}{% endblock %}</label>
+                                <input class="form-control" type="password" name="password" id="password" style="height: 100%; width: 100%;"></input>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <div class="d-flex">
-                            <button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button>
-                            <button class="btn btn-primary" name="submit-login" type="submit">Submit</button>
+                            <button class="btn btn-light" type="button" data-bs-dismiss="modal">{% block por_clo %}{% endblock %}</button>
+                            <button class="btn btn-primary" name="submit-login" type="submit">{% block por_sub %}{% endblock %}</button>
                         </div>
                     </div>
                 </form>

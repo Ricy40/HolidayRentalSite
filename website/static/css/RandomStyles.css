@@ -29,6 +29,12 @@
   max-width: 370px;
 }
 
+.welcome-text-bg {
+  background: rgba(255,255,255,0.7);
+  padding: 5px;
+  max-width: 100%;
+}
+
 .dark-coloured {
   opacity: inherit;
   color: black;
