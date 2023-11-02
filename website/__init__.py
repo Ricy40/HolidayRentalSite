@@ -11,7 +11,7 @@ def create_app():
     abs_instance_path = path.abspath(path.join(path.dirname(__file__), '..', 'instance'))
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'aiu1s32hfust768y98nsajs73k'
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+mysqldb://{os.environ.get("database_username")}:{os.environ.get("database_password")}@localhost/{DB_NAME}'
     db.init_app(app)
 
     from .views import views
